@@ -6,6 +6,8 @@ name: 'dbt_facebook_ads'
 version: '1.0.0'
 config-version: 2
 
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
 # This setting configures which "profile" dbt uses for this project.
 profile: 'dbt_facebook_ads'
 
@@ -33,3 +35,9 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   dbt_facebook_ads:
     # Config indicated by + and applies to all files under models/example/
+    
+    
+vars:
+  dbt_facebook_ads:
+    report: "{{ ref('report') }}"
+    ad: "{{ ref('ad') }}"
