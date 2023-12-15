@@ -1,0 +1,33 @@
+# cd ~/Documents/Visuals/Windsor.ai/erp
+# dot dbt_flow.gv -Tsvg -o dbt_flow.svg
+
+digraph {
+    labelloc=t;
+    label="Data pipeline"
+    rankdir=LR
+    node[shape=none]
+    compound=true
+    
+    Windsor  [label="Windsor.ai\nconnector to\nFacebook Ads" shape=rect style="dashed"]
+    
+    subgraph cluster_0 {
+        style="dashed"
+        label = "Facebook Ads\nsource tables"
+        account [fontcolor=blue]
+        campaign[fontcolor=blue]
+        ad_set  [fontcolor=blue]
+        ad      [fontcolor=blue]
+        report  [fontcolor=blue]
+    }
+    
+    subgraph cluster_1 {
+        style="dashed"
+        label = "dbt model"
+        ad_report [fontcolor=green]
+    }
+    
+    Windsor -> ad_set[lhead=cluster_0]
+    
+    ad     -> ad_report
+    report -> ad_report
+}

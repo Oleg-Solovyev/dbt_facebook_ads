@@ -1,0 +1,22 @@
+# cd ~/Documents/Visuals/Windsor.ai/erp
+# sfdp -Tpng -O vHub.dot
+# dot dbt_models.gv -Tsvg -o dbt_models.svg
+# convert -density 300 vHub.svg vHub.png
+digraph dbt {
+    
+    #graph [pad="0.5", nodesep="0.5", ranksep="2"]
+    labelloc=t;
+    label="ad_report model"
+    node [shape=plain]
+    rankdir=LR
+    
+    ad_report[label=<<table border="1" cellborder="0" cellspacing="0">
+        <tr><td colspan="2" bgcolor="lightgreen" align="left">ad_report</td></tr>
+        <tr><td port="ad_id" fixedsize="true" width="17" height="17"><img src="fk.jpeg"/></td><td port="ad_id2" align="left">ad_id</td></tr>
+        <tr><td></td><td align="left">ad_name</td></tr>
+        <tr><td></td><td align="left">date</td></tr>
+        <tr><td></td><td align="left">impressions</td></tr>
+        <tr><td></td><td align="left">clicks</td></tr>
+        <tr><td></td><td align="left">spend</td></tr>
+    </table>>]
+}

@@ -1,0 +1,58 @@
+# cd ~/Documents/Visuals/Windsor.ai/erp
+# sfdp -Tpng -O vHub.dot
+# dot dbt_source.gv -Tsvg -o dbt_source.svg
+# convert -density 300 vHub.svg vHub.png
+digraph UBS {
+    
+    #graph [pad="0.5", nodesep="0.5", ranksep="2"]
+    labelloc=t;
+    label="Windsor.ai connector to Facebook Ads source tables"
+    node [shape=plain]
+    rankdir=LR
+    
+    account[label=<<table border="1" cellborder="0" cellspacing="0">
+        <tr><td colspan="2" bgcolor="lightblue" align="left">account</td></tr>
+        <tr><td port="account_id" fixedsize="true" width="17" height="17"><img src="pk.jpeg"/></td><td port="account_id2" align="left">account_id</td></tr>
+        <tr><td></td><td align="left">account_name</td></tr>
+    </table>>]
+    
+    campaign[label=<<table border="1" cellborder="0" cellspacing="0">
+        <tr><td colspan="2" bgcolor="lightblue" align="left">campaign</td></tr>
+        <tr><td port="account_id" fixedsize="true" width="17" height="17"><img src="fk.jpeg"/></td><td port="account_id2" align="left">account_id</td></tr>
+        <tr><td port="campaign_id" fixedsize="true" width="17" height="17"><img src="pk.jpeg"/></td><td port="campaign_id2" align="left">campaign_id</td></tr>
+        <tr><td></td><td align="left">campaign</td></tr>
+    </table>>]
+    
+    ad_set[label=<<table border="1" cellborder="0" cellspacing="0">
+        <tr><td colspan="2" bgcolor="lightblue" align="left">ad_set</td></tr>
+        <tr><td port="campaign_id" fixedsize="true" width="17" height="17"><img src="fk.jpeg"/></td><td port="campaign_id" align="left">campaign_id</td></tr>
+        <tr><td port="adset_id" fixedsize="true" width="17" height="17"><img src="pk.jpeg"/></td><td port="adset_id2" align="left">adset_id</td></tr>
+        <tr><td></td><td align="left">adset_name</td></tr>
+        <tr><td></td><td align="left">adset_start_time</td></tr>
+        <tr><td></td><td align="left">adset_end_time</td></tr>
+        <tr><td></td><td align="left">adset_bid_strategy</td></tr>
+        <tr><td></td><td align="left">adset_daily_budget</td></tr>
+    </table>>]
+    
+    ad[label=<<table border="1" cellborder="0" cellspacing="0">
+        <tr><td colspan="2" bgcolor="lightblue" align="left">ad</td></tr>
+        <tr><td port="adset_id" fixedsize="true" width="17" height="17"><img src="fk.jpeg"/></td><td port="adset_id2" align="left">adset_id</td></tr>
+        <tr><td port="ad_id" fixedsize="true" width="17" height="17"><img src="pk.jpeg"/></td><td port="ad_id2" align="left">ad_id</td></tr>
+        <tr><td></td><td align="left">ad_name</td></tr>
+    </table>>]
+    
+    report[label=<<table border="1" cellborder="0" cellspacing="0">
+        <tr><td colspan="2" bgcolor="lightblue" align="left">report</td></tr>
+        <tr><td port="ad_id" fixedsize="true" width="17" height="17"><img src="fk.jpeg"/></td><td port="ad_id2" align="left">ad_id</td></tr>
+        <tr><td></td><td align="left">date</td></tr>
+        <tr><td></td><td align="left">clicks</td></tr>
+        <tr><td></td><td align="left">impressions</td></tr>
+        <tr><td></td><td align="left">spend</td></tr>
+    </table>>]
+   
+
+    account:account_id2   -> campaign:account_id[arrowhead=crow]
+    campaign:campaign_id2 -> ad_set:campaign_id [arrowhead=crow]
+    ad_set:adset_id2      -> ad:adset_id        [arrowhead=crow]
+    ad:ad_id2             -> report:ad_id       [arrowhead=crow]
+}

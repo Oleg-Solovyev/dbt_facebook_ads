@@ -16,9 +16,10 @@ joined as (
 
     select
         ad.ad_id,
+        ad.ad_name,
         report.date,
-        report.clicks,
         report.impressions,
+        report.clicks,
         report.spend
     from report
     left join ad
